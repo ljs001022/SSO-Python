@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: 구글 드라이브로 업로드
-        uses: adityak74/google-drive-upload@v1.1
+        uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }} # 깃허브 설정에 저장할 열쇠
           filename: "*.py"                               # 파이썬 파일들만 복사
