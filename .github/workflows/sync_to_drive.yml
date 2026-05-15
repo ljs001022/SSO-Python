@@ -1,0 +1,23 @@
+# .github/workflows/sync_to_drive.yml
+name: Sync to Google Drive
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 코드가 올라갈 때마다 실행
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v3
+
+      - name: 구글 드라이브로 업로드
+        uses: adityak74/google-drive-upload@v1.1
+        with:
+          credentials: ${{ secrets.GDRIVE_CREDENTIALS }} # 깃허브 설정에 저장할 열쇠
+          filename: "*.py"                               # 파이썬 파일들만 복사
+          folderId: ${{ secrets.GDRIVE_FOLDER_ID }}     # 공유한 드라이브 폴더 ID
+          overwrite: "true"
