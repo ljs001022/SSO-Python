@@ -141,6 +141,13 @@ class SeotdaGame:
         user_round_bet = 0
         com_round_bet = 0
         
+        # [수정] 라운드 시작 시점에 이미 누군가의 잔고가 0냥(올인)이라면 베팅을 건너뛰고 안내 메시지 출력
+        if self.user_money == 0 or self.com_money == 0:
+            all_in_player = "당신" if self.user_money == 0 else "컴퓨터"
+            print(f"📢 [{all_in_player}]이(가) 이미 올인 상태이므로, 이번 라운드는 추가 베팅 없이 진행됩니다.")
+            time.sleep(1.2)
+            return "continue", current_pot
+
         user_acted = False
         com_acted = False
         turn = self.sun
@@ -399,6 +406,5 @@ if __name__ == "__main__":
             break
         round_cnt += 1
 
-    # [추가] 메인 루프 탈출 후 cmd 창이 자동으로 바로 꺼지지 않도록 붙잡아두는 대기 코드
     print("\n" + "="*45)
     input("🚪 프로그램이 종료되었습니다. 창을 닫으려면 [Enter] 키를 누르세요...")
